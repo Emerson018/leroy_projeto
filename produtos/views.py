@@ -1,16 +1,13 @@
 from django.shortcuts import render
-
+from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
+from produtos.models import Produto
 
 
 def index(request):
-    dados = {
-        1: {"nome": "Nebulosa de Carina",
-        "legenda": "webbtelescope.org/NASA"},
-        2: {"nome": "Galáxia NGC",
-        "legenda": "nasa.org/NASA"}
-    }
-
-    return render(request, 'produtos/index.html',{"cards": dados})
+    produtos = Produto.objects.all()
+    return render(request, 'produtos/index.html',{"cards": produtos})
 
 def imagem(request):
     return render(request, 'produtos/imagem.html')
+
