@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from produtos.models import Produto
-from produtos.conteudo import search_data, format_values
+from produtos.conteudo.search_data import data_get, find_price
 from .forms import ProdutoForm
 from bs4 import BeautifulSoup
 import requests
@@ -36,6 +36,7 @@ def lista(request):
                 req.raise_for_status()
                 html_content = req.text
                 soup = BeautifulSoup(html_content,"html.parser")
+
                 title = soup.find('h1', class_='product-title align-left color-text').text.replace('\n', '')
 
                 return render(request, 'produtos/lista.html', {'title': title})
@@ -50,3 +51,5 @@ def lista(request):
         form = ProdutoForm()
 
     return render(request, 'produtos/lista.html', {'form':form})
+
+#passar a variável 'soup' pra dentro 

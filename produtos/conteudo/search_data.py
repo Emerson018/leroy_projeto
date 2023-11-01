@@ -1,13 +1,9 @@
-import datetime
 import csv
-import os
 from io import StringIO
 
 def find_price(prod_price):
 
     linhas_texto = []
-    data_hora = datetime.datetime.now()
-    nome_arquivo = f"dados_{data_hora.strftime('%Y%m%d_%H%M%S')}.csv"
 
     # Write_archive__
     buffer = StringIO()
