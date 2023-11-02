@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from produtos.models import Produto
 from produtos.conteudo.search_data import data_get, find_price
+from produtos.conteudo.format_values import format_real, format_cents
 from .forms import ProdutoForm
 from bs4 import BeautifulSoup
 import requests
@@ -37,9 +38,24 @@ def lista(request):
                 html_content = req.text
                 soup = BeautifulSoup(html_content,"html.parser")
 
-                title = soup.find('h1', class_='product-title align-left color-text').text.replace('\n', '')
+                title   = soup.find('h1', class_='product-title align-left color-text').text.replace('\n', '')
 
-                return render(request, 'produtos/lista.html', {'title': title})
+                barcode = soup.find('div', class_='badge product-code badge-product-code').text
+                lm = ''
+                for caractere in barcode:
+                    if caractere.isdigit():
+                        lm += caractere
+
+                prod_price = soup.find('div',class_='product-price-tag')
+
+                price = find_price(prod_price)
+                reais = format_real(price)
+                centavos = format_cents(price)
+                preco = (reais + centavos)
+
+                
+
+                return render(request, 'produtos/lista.html', {'title': title, 'lm': lm, 'preco':preco})
             
             except requests.exceptions.RequestException as e:
                 messages.error(request, 'Erro ao acessar a página do produto')
