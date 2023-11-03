@@ -32,36 +32,31 @@ def lista(request):
             headers = {
                 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36'}
                 
-            try:    
-                req = requests.get(url,headers=headers)
-                req.raise_for_status()
-                html_content = req.text
-                soup = BeautifulSoup(html_content,"html.parser")
+            if 'leroymerlin.com.br' not in url:
+                messages.error(request, 'Formulário inválido. Certifique-se de inserir o link correto.')
+                return render(request, 'produtos/lista.html')
 
-                title   = soup.find('h1', class_='product-title align-left color-text').text.replace('\n', '')
+            req = requests.get(url,headers=headers)
+            req.raise_for_status()
+            html_content = req.text
+            soup = BeautifulSoup(html_content,"html.parser")
 
-                barcode = soup.find('div', class_='badge product-code badge-product-code').text
-                lm = ''
-                for caractere in barcode:
-                    if caractere.isdigit():
-                        lm += caractere
+            title   = soup.find('h1', class_='product-title align-left color-text').text.replace('\n', '')
 
-                prod_price = soup.find('div',class_='product-price-tag')
+            barcode = soup.find('div', class_='badge product-code badge-product-code').text
+            lm = ''
+            for caractere in barcode:
+                if caractere.isdigit():
+                    lm += caractere
 
-                price = find_price(prod_price)
-                reais = format_real(price)
-                centavos = format_cents(price)
-                preco = (reais + centavos)
+            prod_price = soup.find('div',class_='product-price-tag')
 
-                
+            price = find_price(prod_price)
+            reais = format_real(price)
+            centavos = format_cents(price)
+            preco = (reais + centavos)
 
-                return render(request, 'produtos/lista.html', {'title': title, 'lm': lm, 'preco':preco})
-            
-            except requests.exceptions.RequestException as e:
-                messages.error(request, 'Erro ao acessar a página do produto')
-        
-        else:
-            messages.error(request, 'Formulário inválido. Certifique-se de inserir o link correto.')
+            return render(request, 'produtos/lista.html', {'title': title, 'lm': lm, 'preco':preco})
     
     else:
         form = ProdutoForm()
