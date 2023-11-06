@@ -42,21 +42,25 @@ def lista(request):
             soup = BeautifulSoup(html_content,"html.parser")
 
             title   = soup.find('h1', class_='product-title align-left color-text').text.replace('\n', '')
+            if title:
+                barcode = soup.find('div', class_='badge product-code badge-product-code').text
+                lm = ''
+                for caractere in barcode:
+                    if caractere.isdigit():
+                        lm += caractere
 
-            barcode = soup.find('div', class_='badge product-code badge-product-code').text
-            lm = ''
-            for caractere in barcode:
-                if caractere.isdigit():
-                    lm += caractere
+                prod_price = soup.find('div',class_='product-price-tag')
 
-            prod_price = soup.find('div',class_='product-price-tag')
+                price = find_price(prod_price)
+                reais = format_real(price)
+                centavos = format_cents(price)
+                preco = (reais + centavos)
 
-            price = find_price(prod_price)
-            reais = format_real(price)
-            centavos = format_cents(price)
-            preco = (reais + centavos)
-
-            return render(request, 'produtos/lista.html', {'title': title, 'lm': lm, 'preco':preco})
+                return render(request, 'produtos/lista.html', {'title': title, 'lm': lm, 'preco':preco})
+            
+            else:
+                messages.error(request, 'Certifique-se de inserir o link de um PRODUTO.')
+                return render(request, 'produtos/lista.html')
     
     else:
         form = ProdutoForm()

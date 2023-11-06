@@ -382,3 +382,31 @@ table {
     border: 2px solid #7B78E5;
     cursor: pointer;
 }
+
+.messages-container {
+    margin: 20px 0;
+}
+
+.alert-primary {
+    background-color: #007BFF;
+    color: #fff;
+    padding: 10px;
+    border: 1px solid #0056b3;
+}
+
+.search-form {
+    margin-top: 20px;
+}
+
+.product-info {
+    margin-top: 20px;
+}
+
+.product-info-title {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.product-info-text {
+    font-size: 18px;
+}
