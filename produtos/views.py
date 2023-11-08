@@ -6,6 +6,7 @@ from produtos.conteudo.format_values import format_real, format_cents
 from .forms import ProdutoForm
 from bs4 import BeautifulSoup
 import requests
+from datetime import datetime
 
 def index(request):
     produto = Produto.objects.order_by("-data_produto")
@@ -34,7 +35,7 @@ def lista(request):
                 
             if 'leroymerlin.com.br' not in url:
                 messages.error(request, 'Formulário inválido. Certifique-se de inserir o link correto.')
-                return render(request, 'produtos/lista.html')
+                return redirect('lista')
 
             req = requests.get(url,headers=headers)
             req.raise_for_status()
@@ -56,6 +57,17 @@ def lista(request):
                 centavos = format_cents(price)
                 preco = (reais + centavos)
 
+                if lm not in Produto:
+                    produto = Produto(lm=lm,
+                                    titulo=title,
+                                    preco=preco)
+                    produto.save()
+
+                else:
+                    messages.error(request, 'Produto já existente no banco de dados!')
+                    return redirect('lista')
+
+                messages.success(request, 'Produto salvo com sucesso!')
                 return render(request, 'produtos/lista.html', {'title': title, 'lm': lm, 'preco':preco})
             
             else:
