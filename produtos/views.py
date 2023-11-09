@@ -1,12 +1,11 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from produtos.models import Produto
-from produtos.conteudo.search_data import data_get, find_price
+from produtos.conteudo.search_data import find_price
 from produtos.conteudo.format_values import format_real, format_cents
 from .forms import ProdutoForm
 from bs4 import BeautifulSoup
 import requests
-from datetime import datetime
 
 def index(request):
     produto = Produto.objects.order_by("-data_produto")
@@ -42,8 +41,10 @@ def lista(request):
             html_content = req.text
             soup = BeautifulSoup(html_content,"html.parser")
 
-            title   = soup.find('h1', class_='product-title align-left color-text').text.replace('\n', '')
-            if title:
+            title_element = soup.find('h1', class_='product-title align-left color-text')
+                
+            if title_element:
+                title = title_element.text.replace('\n', '')
                 barcode = soup.find('div', class_='badge product-code badge-product-code').text
                 lm = ''
                 for caractere in barcode:
@@ -57,18 +58,16 @@ def lista(request):
                 centavos = format_cents(price)
                 preco = (reais + centavos)
 
-                if lm not in Produto:
-                    produto = Produto(lm=lm,
-                                    titulo=title,
-                                    preco=preco)
-                    produto.save()
+                if lm:
+                    if Produto.objects.filter(lm=lm).exists():
+                        messages.error(request, 'Produto já existente.')
+                        return redirect('lista')
+                    else:
+                        produto = Produto(lm=lm, titulo=title, preco=preco)
+                        produto.save()
 
-                else:
-                    messages.error(request, 'Produto já existente no banco de dados!')
-                    return redirect('lista')
-
-                messages.success(request, 'Produto salvo com sucesso!')
-                return render(request, 'produtos/lista.html', {'title': title, 'lm': lm, 'preco':preco})
+                        messages.success(request, 'Produto salvo com sucesso!')
+                        return render(request, 'produtos/lista.html', {'title': title, 'lm': lm, 'preco':preco})
             
             else:
                 messages.error(request, 'Certifique-se de inserir o link de um PRODUTO.')
