@@ -8,4 +8,4 @@ class Produto(models.Model):
     data_produto = models.DateTimeField(default=datetime.now, blank=False)
 
     def __str__(self):
-        return f"LM [lm={self.lm}]"
+        return f"{self.lm}]"

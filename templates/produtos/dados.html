@@ -1,0 +1,34 @@
+{% extends 'produtos/base.html' %}
+{% load static %}
+{% block content %}
+
+<section>
+    <table class="table table-striped table-bordered table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">lm</th>
+                <th scope="col">titulo</th>
+                <th scope="col">preco</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            {% if dados %}
+            {% for dado in dados %}
+
+            <tr class="table-success">
+
+                <td>{{ dado.lm }}</td>
+                <td>{{ dado.titulo }}</td>
+                <td>{{ dado.preco }}</td>
+            </tr>
+
+            {% endfor %}
+            {%endif%}
+
+        </tbody>
+    </table>
+</section>
+</div>
+
+{% endblock %}

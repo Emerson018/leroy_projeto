@@ -78,4 +78,9 @@ def lista(request):
 
     return render(request, 'produtos/lista.html', {'form':form})
 
+def dados(request):
+    dados = Produto.objects.all()
+
+    return render(request, 'produtos/dados.html', {'dados': dados})
+
 #passar a variável 'soup' pra dentro 
