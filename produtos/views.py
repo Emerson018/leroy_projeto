@@ -63,11 +63,11 @@ def lista(request):
                         messages.error(request, 'Produto já existente.')
                         return redirect('lista')
                     else:
-                        produto = Produto(lm=lm, titulo=title, preco=preco)
+                        produto = Produto(lm=lm, titulo=title, preco=preco, link=url)
                         produto.save()
 
                         messages.success(request, 'Produto salvo com sucesso!')
-                        return render(request, 'produtos/lista.html', {'title': title, 'lm': lm, 'preco':preco})
+                        return render(request, 'produtos/lista.html', {'title': title, 'lm': lm, 'preco':preco, 'url': url})
             
             else:
                 messages.error(request, 'Certifique-se de inserir o link de um PRODUTO.')
