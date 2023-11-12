@@ -84,3 +84,6 @@ def dados(request):
     return render(request, 'produtos/dados.html', {'dados': dados})
 
 #passar a variável 'soup' pra dentro 
+
+def item(request):
+    return render(request, 'produtos/item.html')
