@@ -19,10 +19,11 @@
 
             <tr class="table-success">
 
-                <td>{{ dado.lm }}</td>
+                <td><a href="{% url 'detalhe_produto' %}?lm={{ dado.lm}}&titulo={{dado.titulo}}" target="_blank">{{ dado.lm }}</a></td>
+
                 <td>{{ dado.titulo }}</td>
                 <td>{{ dado.preco }}</td>
-                <td>{{ dado.link }}</td>
+                <td><a href="{{ dado.link }}" target="_blank">{{ dado.link }}</a></td>
             </tr>
 
             {% endfor %}

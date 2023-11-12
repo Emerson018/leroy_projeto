@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from produtos.models import Produto
 from produtos.conteudo.search_data import find_price
@@ -83,7 +83,8 @@ def dados(request):
 
     return render(request, 'produtos/dados.html', {'dados': dados})
 
-#passar a variável 'soup' pra dentro 
+def detalhe_produto(request):
+    lm = request.GET.get('lm')
+    titulo = request.GET.get('titulo')
 
-def item(request):
-    return render(request, 'produtos/item.html')
+    return render(request, 'produtos/detalhe_produto.html', {'lm': lm, 'titulo': titulo})
