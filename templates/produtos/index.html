@@ -8,12 +8,12 @@
                     <h1 class="banner__titulo"></h1>
                 </section>
                 <section class="tags">
-                    <p class="tags__titulo">Busque por tags:</p>
+                    <p class="tags__titulo">Produtos mais procurados:</p>
                     <ul class="tags__lista">
-                        <li class="tags__tag">Nebulosa</li>
-                        <li class="tags__tag">Estrela</li>
-                        <li class="tags__tag">Galáxia</li>
-                        <li class="tags__tag">Planeta</li>
+                        <li class="tags__tag">Ar Condicionado</li>
+                        <li class="tags__tag">Monitor</li>
+                        <li class="tags__tag">Fio</li>
+                        <li class="tags__tag">Placa de Vídeo</li>
                     </ul>
                 </section>
                 <section class="galeria">
@@ -29,9 +29,8 @@
                                 </a>
                                 <span class="card__tag">Estrelas</span>
                                 <div class="card__info">
-                                    <p class="card__titulo">{{produto.titulo}}</p>
-                                    <div class="card__texto">
-                                        <p class="card__descricao">{{produto.preco}}</p>
+                                    <p class="card__titulo" style="color: aqua;">{{produto.titulo}}</p>
+                                    <div class="card__texto" style="color: aqua; margin-bottom: 15px;">{{produto.preco}}
                                         <span>
                                             <img src="{% static '/assets/ícones/1x/favorite_outline.png' %}" alt="ícone de coração">
                                         </span>
