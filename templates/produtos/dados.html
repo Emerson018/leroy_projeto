@@ -6,10 +6,10 @@
     <table class="table table-striped table-bordered table-hover">
         <thead class="thead-dark">
             <tr>
-                <th scope="col">lm</th>
-                <th scope="col">titulo</th>
-                <th scope="col">preco</th>
-                <th scope="col">link</th>
+                <th scope="col">CÓDIGO</th>
+                <th scope="col">DESCRIÇÃO</th>
+                <th scope="col">PREÇO</th>
+                <th scope="col">LINK</th>
             </tr>
         </thead>
         <tbody>
@@ -23,7 +23,7 @@
 
                 <td>{{ dado.titulo }}</td>
                 <td>{{ dado.preco }}</td>
-                <td><a href="{{ dado.link }}" target="_blank">{{ dado.link }}</a></td>
+                <td><a href="{{ dado.link }}" target="_blank"><i class="fa fa-external-link-square" aria-hidden="true"></i></a></td>
             </tr>
 
             {% endfor %}

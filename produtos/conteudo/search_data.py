@@ -19,42 +19,18 @@ def find_price(prod_price):
     return '\n'.join(linhas_texto)
 
 def data_get(soup):
-    ean_13 = ''
-    nome_arquivo_csv = "dados.csv"
 
-    prod_barcode = soup.find(
-        'div',
-        class_='badge product-code badge-product-code'
-    ).text
+    title_element = soup.find('h1', class_='product-title align-left color-text')
+                
+    if title_element:
+        title = title_element.text.replace('\n', '')
+        barcode = soup.find('div', class_='badge product-code badge-product-code').text
+        lm = ''
+        for caractere in barcode:
+            if caractere.isdigit():
+                lm += caractere
 
-    for caractere in prod_barcode:
-        if caractere.isdigit():
-            ean_13 += caractere
+        prod_price = soup.find('div',class_='product-price-tag')
 
-    title = soup.find(
-        'h1',
-        class_='product-title align-left color-text'
-    ).text.replace('\n', '')
 
-    prod_price = soup.find(
-        'div',
-        class_='product-price-tag'
-    )
-    infos = soup.find(
-        'div',
-        class_='product-info-details'
-    )
-
-    infos_produto = [
-        'Produto',
-        'Dimensão',
-        'Cor',
-        'Modelo',
-        'Marca',
-        'Garantia do Fabricante'
-        'teste',
-        'Tipo',
-        'Potencia',
-        'Tipo de Ar Condicionado']
-
-    return nome_arquivo_csv, title, prod_price, ean_13, infos, infos_produto
+    return title, prod_price, lm

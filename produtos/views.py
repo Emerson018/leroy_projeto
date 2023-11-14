@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from produtos.models import Produto
-from produtos.conteudo.search_data import find_price
+from produtos.conteudo.search_data import find_price, data_get
 from produtos.conteudo.format_values import format_real, format_cents
 from .forms import ProdutoForm
 from bs4 import BeautifulSoup
@@ -55,7 +55,7 @@ def lista(request):
 
                 price = find_price(prod_price)
                 reais = format_real(price)
-                centavos = format_cents(price)
+                centavos = format_cents(price) 
                 preco = (reais + centavos)
 
                 if lm:
