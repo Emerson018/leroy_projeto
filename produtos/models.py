@@ -6,6 +6,8 @@ class Produto(models.Model):
     titulo = models.CharField(max_length=100, null=False, blank=False)
     preco = models.FloatField(max_length=10, null=False, blank=False)
     link = models.CharField(max_length=200, null=False, blank=False)
+    avaliacoes = models.IntegerField(max_length=4)
+    media_avaliacoes = models.IntegerField(max_length=4, blank=False)
     data_produto = models.DateTimeField(default=datetime.now, blank=False)
 
     def __str__(self):
