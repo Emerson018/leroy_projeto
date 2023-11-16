@@ -10,6 +10,8 @@
                 <th scope="col">DESCRIÇÃO</th>
                 <th scope="col">PREÇO</th>
                 <th scope="col">LINK</th>
+                <th scope="col">Avaliações</th>
+                <th scope="col">Média Avaliações</th>
             </tr>
         </thead>
         <tbody>
@@ -24,6 +26,8 @@
                 <td>{{ dado.titulo }}</td>
                 <td>{{ dado.preco }}</td>
                 <td><a href="{{ dado.link }}" target="_blank"><i class="fa fa-external-link-square" aria-hidden="true"></i></a></td>
+                <td>{{ dado.avaliacoes }}</td>
+                <td>{{ dado.media_avaliacoes }}</td>
             </tr>
 
             {% endfor %}

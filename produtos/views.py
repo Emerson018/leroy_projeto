@@ -1,7 +1,7 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from django.contrib import messages
 from produtos.models import Produto
-from produtos.conteudo.search_data import find_price, data_get
+from produtos.conteudo.search_data import find_price, get_review
 from produtos.conteudo.format_values import format_real, format_cents
 from .forms import ProdutoForm
 from bs4 import BeautifulSoup
@@ -57,17 +57,31 @@ def lista(request):
                 reais = format_real(price)
                 centavos = format_cents(price) 
                 preco = (reais + centavos)
+                review, average_review = get_review(lm)
+
+
+
+
 
                 if lm:
                     if Produto.objects.filter(lm=lm).exists():
                         messages.error(request, 'Produto já existente.')
                         return redirect('lista')
                     else:
-                        produto = Produto(lm=lm, titulo=title, preco=preco, link=url)
+                        produto = Produto(
+                            lm=lm,
+                            titulo=title,
+                            preco=preco,
+                            link=url,
+                            avaliacoes=review,
+                            media_avaliacoes=average_review)
                         produto.save()
 
                         messages.success(request, 'Produto salvo com sucesso!')
-                        return render(request, 'produtos/lista.html', {'title': title, 'lm': lm, 'preco':preco, 'url': url})
+                        return render(
+                            request,
+                            'produtos/lista.html',
+                            {'title': title, 'lm': lm, 'preco':preco, 'url': url, 'avaliacoes': review, 'media_avaliacoes': average_review})
             
             else:
                 messages.error(request, 'Certifique-se de inserir o link de um PRODUTO.')
