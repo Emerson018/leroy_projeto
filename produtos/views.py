@@ -59,13 +59,10 @@ def lista(request):
                 preco = (reais + centavos)
                 review, average_review = get_review(lm)
 
-
-
-
-
                 if lm:
                     if Produto.objects.filter(lm=lm).exists():
                         messages.error(request, 'Produto já existente.')
+
                         return redirect('lista')
                     else:
                         produto = Produto(
@@ -76,8 +73,8 @@ def lista(request):
                             avaliacoes=review,
                             media_avaliacoes=average_review)
                         produto.save()
-
                         messages.success(request, 'Produto salvo com sucesso!')
+
                         return render(
                             request,
                             'produtos/lista.html',
