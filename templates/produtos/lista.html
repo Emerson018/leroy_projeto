@@ -2,12 +2,6 @@
 {% load static %}
 {% block content %}
 
-
-    {% for message in messages %}
-    <div class="alert alert-primary" role="alert" >
-        <p id="messages">{{message}}</p>
-    </div>
-    {% endfor %}
     <form method="post" class="mt-3 search-form">
         {% csrf_token %}
         {{ form.as_p }}
