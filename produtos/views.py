@@ -8,6 +8,10 @@ from bs4 import BeautifulSoup
 import requests
 
 def index(request):
+    if not request.user.is_authenticated:
+        messages.error(request, 'Faça login para acessar a página.')
+        return redirect('login')
+    
     produto = Produto.objects.order_by("-data_produto")
     return render(request, 'produtos/index.html',{"cards": produto})
 
@@ -15,6 +19,10 @@ def imagem(request):
     return render(request, 'produtos/imagem.html')
 
 def buscar(request):
+    if not request.user.is_authenticated:
+        messages.error(request, 'Faça login para pesquisar.')
+        return redirect('login')
+    
     produtos = Produto.objects.order_by("-data_produto")
 
     if "buscar"  in request.GET:

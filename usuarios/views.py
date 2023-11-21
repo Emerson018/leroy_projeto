@@ -45,10 +45,6 @@ def register(request):
         form = CadastroForms(request.POST)
         
         if form.is_valid():
-            if form["senha1"].value() != form["senha2"].value():
-                messages.error(request, "Senha não são iguais.")
-
-                return redirect('register')
             
             nome = form["nome_cadastro"].value()
             email = form["email"].value()

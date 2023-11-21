@@ -5,7 +5,7 @@
             <section class="conteudo">
                 <section class="banner" >
                     <img class="banner__imagem" src="{% static '/assets/imagens/Banner(2).png' %}" alt="banner Alura Space">
-                    <h1 class="banner__titulo"></h1>
+                    <h1 class="banner__titulo"> PRODUTOS e INFORMAÇÕES </h1>
                 </section>
                 <section class="tags">
                     <p class="tags__titulo">Produtos mais procurados:</p>
@@ -24,7 +24,7 @@
                             {% if cards %}
                             <!--{% for produto in cards %}-->
                             <li class="card">
-                                <a href="{% url 'detalhe_produto' %}">
+                                <a href="{% url 'index' %}">
                                     <img class="card__imagem" src="{% static '/assets/imagens/galeria/carina-nebula.png' %}" alt="foto">
                                 </a>
                                 <span class="card__tag">Estrelas</span>
