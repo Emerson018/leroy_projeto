@@ -25,7 +25,11 @@
                             <!--{% for produto in cards %}-->
                             <li class="card">
                                 <a href="{% url 'index' %}">
-                                    <img class="card__imagem" src="{% static '/assets/imagens/galeria/carina-nebula.png' %}" alt="foto">
+                                    {% if produto.foto == "" or produto.foto == null %}
+                                        <img class="card__imagem" src="{% static '/assets/imagens/galeria/Image_not_available.png' %}" alt="foto">
+                                    {% else %}
+                                        <img class="card__imagem" src="{{ produto.foto.url }}" alt="foto">
+                                    {% endif %}
                                 </a>
                                 <span class="card__tag">Estrelas</span>
                                 <div class="card__info">

@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from produtos.models import Produto
-from produtos.conteudo.search_data import find_price, get_review
+from produtos.conteudo.search_data import find_price, get_review, requisition
 from produtos.conteudo.format_values import format_real, format_cents
 from .forms import ProdutoForm
 from bs4 import BeautifulSoup
@@ -37,29 +37,22 @@ def lista(request):
         form = ProdutoForm(request.POST)
         if form.is_valid():
             url = form.cleaned_data['link']
-            headers = {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36'}
-                
+            
             if 'leroymerlin.com.br' not in url:
                 messages.error(request, 'Formulário inválido. Certifique-se de inserir o link correto.')
                 return redirect('lista')
 
-            req = requests.get(url,headers=headers)
-            req.raise_for_status()
-            html_content = req.text
-            soup = BeautifulSoup(html_content,"html.parser")
-
-            title_element = soup.find('h1', class_='product-title align-left color-text')
+            title_element = requisition(url).find('h1', class_='product-title align-left color-text')
                 
             if title_element:
                 title = title_element.text.replace('\n', '')
-                barcode = soup.find('div', class_='badge product-code badge-product-code').text
+                barcode = requisition(url).find('div', class_='badge product-code badge-product-code').text
                 lm = ''
                 for caractere in barcode:
                     if caractere.isdigit():
                         lm += caractere
 
-                prod_price = soup.find('div',class_='product-price-tag')
+                prod_price = requisition(url).find('div',class_='product-price-tag')
 
                 price = find_price(prod_price)
                 reais = format_real(price)
@@ -80,6 +73,7 @@ def lista(request):
                             link=url,
                             avaliacoes=review,
                             media_avaliacoes=average_review)
+                        
                         produto.save()
                         messages.success(request, 'Produto salvo com sucesso!')
 

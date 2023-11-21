@@ -21,8 +21,7 @@
 
             <tr class="table-success">
 
-                <td><a href="{% url 'detalhe_produto' %}?lm={{ dado.lm}}&titulo={{dado.titulo}}" target="_blank">{{ dado.lm }}</a></td>
-
+                <td><a href="{% url 'detalhe_produto' %}?lm={{ dado.lm}}&titulo={{dado.titulo}}&foto={{dado.foto}}" target="_blank">{{ dado.lm }}</a></td>
                 <td>{{ dado.titulo }}</td>
                 <td>{{ dado.preco }}</td>
                 <td><a href="{{ dado.link }}" target="_blank"><i class="fa fa-external-link-square" aria-hidden="true"></i></a></td>
