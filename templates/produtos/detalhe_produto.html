@@ -4,11 +4,11 @@
             <section class="conteudo">
                 <section class="imagem">
                     <div class="imagem__conteudo">
-                       {% if dado.foto %}
-                            <img class="imagem__imagem" src="{{ dado.foto.url }}" alt="foto">
+                        {% if foto %}
+                            <img class="card__imagem" src="{{ foto }}" alt="foto">                        
                         {% else %}
-                            <img class="imagem__imagem" src="{% static '/assets/imagens/galeria/Image_not_available.png' %}">
-                        {% endif %}
+                            <img class="card__imagem" src="{% static '/assets/imagens/galeria/Image_not_available.png' %}" alt="foto">
+                        {% endif %}    
                         <div class="product__info">
                             <h2>Título: {{ titulo }}</h2>
                             <p>LM: {{ lm }}</p>

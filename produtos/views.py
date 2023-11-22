@@ -99,5 +99,6 @@ def dados(request):
 def detalhe_produto(request):
     lm = request.GET.get('lm')
     titulo = request.GET.get('titulo')
+    foto = request.GET.get('foto')
 
-    return render(request, 'produtos/detalhe_produto.html', {'lm': lm, 'titulo': titulo})
+    return render(request, 'produtos/detalhe_produto.html', {'lm': lm, 'titulo': titulo, 'foto':foto})
