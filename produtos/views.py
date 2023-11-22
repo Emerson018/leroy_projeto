@@ -1,11 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from produtos.models import Produto
-from produtos.conteudo.search_data import find_price, get_review, requisition
+from produtos.conteudo.search_data import find_price, get_review, requisition, get_image
 from produtos.conteudo.format_values import format_real, format_cents
 from .forms import ProdutoForm
-from bs4 import BeautifulSoup
-import requests
 
 def index(request):
     if not request.user.is_authenticated:
@@ -59,6 +57,8 @@ def lista(request):
                 centavos = format_cents(price) 
                 preco = (reais + centavos)
                 review, average_review = get_review(lm)
+                #NAO ESTÁ FUNCIONANDO, TEM Q VER DPOIS
+                foto = get_image(url)
 
                 if lm:
                     if Produto.objects.filter(lm=lm).exists():
@@ -72,7 +72,8 @@ def lista(request):
                             preco=preco,
                             link=url,
                             avaliacoes=review,
-                            media_avaliacoes=average_review)
+                            media_avaliacoes=average_review,
+                            foto=foto)
                         
                         produto.save()
                         messages.success(request, 'Produto salvo com sucesso!')
@@ -80,7 +81,7 @@ def lista(request):
                         return render(
                             request,
                             'produtos/lista.html',
-                            {'title': title, 'lm': lm, 'preco':preco, 'url': url, 'avaliacoes': review, 'media_avaliacoes': average_review})
+                            {'title': title, 'lm': lm, 'preco':preco, 'url': url, 'avaliacoes': review, 'media_avaliacoes': average_review, 'foto': foto})
             
             else:
                 messages.error(request, 'Certifique-se de inserir o link de um PRODUTO.')
