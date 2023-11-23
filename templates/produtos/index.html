@@ -24,7 +24,7 @@
                             {% if cards %}
                             <!--{% for produto in cards %}-->
                             <li class="card">
-                                <a href="{% url 'detalhe_produto' %}?lm={{ produto.lm}}&titulo={{produto.titulo}}&foto={{produto.foto}}" target="_blank">
+                                <a href="{% url 'detalhe_produto' %}?lm={{ produto.lm}}&titulo={{produto.titulo}}" target="_blank">
                                     {% if produto.foto == "" or produto.foto == null %}
                                         <img class="card__imagem" src="{% static '/assets/imagens/galeria/Image_not_available.png' %}" alt="foto">
                                     {% else %}
