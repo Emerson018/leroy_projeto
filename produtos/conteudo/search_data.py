@@ -64,23 +64,9 @@ def get_image(url):
     img_url = img_tag['src']
     img_data = requests.get(img_url).content
     img_filename = img_url.split("/")[-1]
+    img_path = f'media/{img_filename}'
 
-    with open(f'media/{img_filename}', 'wb') as img_file:
-        foto_file = img_file.write(img_data)
+    with open(img_path, 'wb') as img_file:
+        img_file.write(img_data)
 
-        return foto_file
-
-
-
-    '''
-    linhas_texto = []
-
-    # Write_archive__
-    buffer = StringIO()
-    writer = csv.writer(buffer)
-    writer.writerows(prod_price)
-
-    buffer.seek(0)
-    reader = csv.reader(buffer)
-
-    '''
+        return img_path

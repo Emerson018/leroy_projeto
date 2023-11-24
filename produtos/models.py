@@ -10,7 +10,10 @@ class Produto(models.Model):
     avaliacoes = models.IntegerField(null=False, blank=False)
     media_avaliacoes = models.FloatField(max_length=4, null=False, blank=False)
     data_produto = models.DateTimeField(default=datetime.now, blank=False)
-    foto = models.ImageField(upload_to="fotos/%Y/%m/%d/", blank=True)
+    foto = models.ImageField(blank=True)
+
+# caso queira salvar em um lugar especifico a foto: upload_to="fotos/%Y/%m/%d/", 
+
     usuario = models.ForeignKey(
         to=User,
         on_delete=models.SET_NULL,

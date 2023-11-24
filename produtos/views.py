@@ -81,7 +81,15 @@ def lista(request):
                         return render(
                             request,
                             'produtos/lista.html',
-                            {'title': title, 'lm': lm, 'preco':preco, 'url': url, 'avaliacoes': review, 'media_avaliacoes': average_review, 'foto': foto})
+                            {'title': title,
+                             'lm': lm,
+                             'preco':preco,
+                             'url': url,
+                             'avaliacoes': review,
+                             'media_avaliacoes': average_review,
+                             'foto': foto
+                            }
+                        )
             
             else:
                 messages.error(request, 'Certifique-se de inserir o link de um PRODUTO.')
