@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup
 import requests
 import re
 import random
+import os
 
 def requisition(url):
     headers = {
