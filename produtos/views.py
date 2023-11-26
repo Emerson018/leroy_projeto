@@ -4,6 +4,7 @@ from produtos.models import Produto
 from produtos.conteudo.search_data import find_price, get_review, requisition, get_image
 from produtos.conteudo.format_values import format_real, format_cents
 from .forms import ProdutoForm
+from urllib.parse import unquote
 
 def index(request):
     if not request.user.is_authenticated:
@@ -43,21 +44,19 @@ def lista(request):
             title_element = requisition(url).find('h1', class_='product-title align-left color-text')
                 
             if title_element:
-                title = title_element.text.replace('\n', '')
+                title = title_element.text.replace('\n', '').replace('&','e').replace('+', ' plus')
                 barcode = requisition(url).find('div', class_='badge product-code badge-product-code').text
                 lm = ''
                 for caractere in barcode:
                     if caractere.isdigit():
                         lm += caractere
-
+                
                 prod_price = requisition(url).find('div',class_='product-price-tag')
-
                 price = find_price(prod_price)
                 reais = format_real(price)
                 centavos = format_cents(price) 
                 preco = (reais + centavos)
                 review, average_review = get_review(lm)
-                #NAO ESTÁ FUNCIONANDO, TEM Q VER DPOIS
                 foto = get_image(url)
 
                 if lm:
@@ -107,10 +106,11 @@ def dados(request):
 
 def detalhe_produto(request):
     lm = request.GET.get('lm')
-    titulo = request.GET.get('titulo')
-    
+    titulo = unquote(request.GET.get('titulo'))
     produto = Produto.objects.get(lm=lm, titulo=titulo)
-
     foto = produto.foto.url if produto.foto else None
-
+ 
     return render(request, 'produtos/detalhe_produto.html', {'lm': lm, 'titulo': titulo, 'foto':foto})
+
+def testes(request):
+    return render(request, 'produtos/testes.html')

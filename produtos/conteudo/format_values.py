@@ -13,9 +13,9 @@ def format_real(text_lines):
         if match:
             price = match.group(1).replace('.', '')
             values.append(price)
+            
             return price
-    
-
+                  
 def format_cents(text_lines):
     key_word = 'const'
     default = r'.\d{2}'
@@ -36,7 +36,6 @@ def format_cents(text_lines):
                     cents_value = values[1]
                     return cents_value
                     
-
     return price
 
 def format_data(reais, centavos, ean_13, title):

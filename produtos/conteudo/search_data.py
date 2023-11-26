@@ -69,6 +69,7 @@ def get_image(url):
 
     img_url = img_tag['src']
     img_data = requests.get(img_url).content
+    
     img_filename = img_url.split("/")[-1]
 
     img_content = ContentFile(img_data)

@@ -1,32 +1,14 @@
 {% load static %}
-<div class="pagina-inicial">
-    <header class="cabecalho">
-        <a href="{% url 'index' %}"><img src="{% static '/assets/logo/logo(2).png' %}" alt="Logo da Alura Space" /></a>
-        {% for message in messages %}
-            <div class="alert alert-primary" role="alert">
-                <p id="messages">{{ message }}</p>
-            </div>
-            {% endfor %}
-        <div class="cabecalho__busca">
-            <div class="busca__fundo">
-                <form action="{% url 'buscar' %}">
-                    <input class="busca__input" type="text" name="buscar" placeholder="O que você procura?">
-                    <button type="submit">
-                        <img class="busca__icone" src="{% static '/assets/ícones/1x/search.png' %}" alt="ícone de search">
-                    </button>
-                </form>
-            </div>
-        </div>
-    </header>
-    <main class="principal">
+<main class="principal">
+    
         <section class="menu-lateral">
             <nav class="menu-lateral__navegacao">
                 <a href="{% url 'index' %}"><img src="{% static '/assets/ícones/1x/Home - ativo.png' %}"> Home</a>
-                <a href="{% url 'lista' %}"><img src="{% static '/assets/ícones/1x/Mais vistas - inativo.png' %}"> Planilha</a>
+                <a href="{% url 'lista' %}"><img src="{% static '/assets/ícones/1x/Mais vistas - inativo.png' %}"> Adicionar Produto</a>
                 <a href="{% url 'dados' %}"><img src="{% static '/assets/ícones/1x/Mais vistas - inativo.png' %}"> Banco de dados</a>
                 <a href="{% url 'login' %}"><img src="{% static '/assets/ícones/1x/Mais vistas - inativo.png' %}"> Login</a>
                 <a href="{% url 'register' %}"><img src="{% static '/assets/ícones/1x/Mais vistas - inativo.png' %}"> Registrar</a>
                 <a href="{% url 'logout' %}"><img src="{% static '/assets/ícones/1x/Mais vistas - inativo.png' %}"> Logout</a>
-                
+                <a href="{% url 'testes' %}"><img src="{% static '/assets/ícones/1x/Mais vistas - inativo.png' %}"> TESTES</a>                  
             </nav>
         </section>
