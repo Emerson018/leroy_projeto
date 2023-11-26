@@ -5,6 +5,11 @@ import requests
 import re
 import random
 import os
+from django.conf import settings
+from django.core.files.storage import default_storage
+from django.core.files.base import ContentFile
+
+
 
 def requisition(url):
     headers = {
@@ -65,9 +70,8 @@ def get_image(url):
     img_url = img_tag['src']
     img_data = requests.get(img_url).content
     img_filename = img_url.split("/")[-1]
-    img_path = f'media/{img_filename}'
 
-    with open(img_path, 'wb') as img_file:
-        img_file.write(img_data)
-
-        return img_path
+    img_content = ContentFile(img_data)
+    img_path = default_storage.save(img_filename,img_content)
+    
+    return img_path

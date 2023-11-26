@@ -10,7 +10,7 @@
                 <section class="tags">
                     <p class="tags__titulo">Produtos mais procurados:</p>
                     <ul class="tags__lista">
-                        <li class="tags__tag">Ar Condicionado</li>
+                        <li class="tags__tag">Celular</li>
                         <li class="tags__tag">Monitor</li>
                         <li class="tags__tag">Fio</li>
                         <li class="tags__tag">Placa de Vídeo</li>
@@ -31,7 +31,7 @@
                                         <img class="card__imagem" src="{{ produto.foto.url }}" alt="foto">
                                     {% endif %}
                                 </a>
-                                <span class="card__tag">Estrelas</span>
+                                <span class="card__tag " style="color: aqua;">{{produto.lm}}</span>
                                 <div class="card__info">
                                     <p class="card__titulo" style="color: aqua;">{{produto.titulo}}</p>
                                     <div class="card__texto" style="color: aqua; margin-bottom: 15px;">R$ {{produto.preco}}
