@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.db.models import Q
 from produtos.models import Produto
 from produtos.conteudo.search_data import find_price, get_review, requisition, get_image
 from produtos.conteudo.format_values import format_real, format_cents
@@ -25,9 +26,10 @@ def buscar(request):
     produtos = Produto.objects.order_by("-data_produto")
 
     if "buscar"  in request.GET:
-        nome_a_buscar = request.GET['buscar']
-        if nome_a_buscar:
-            produtos = produtos.filter(titulo__icontains=nome_a_buscar)
+        termo_busca = request.GET['buscar']
+        if termo_busca:
+            produtos = produtos.filter(Q(titulo__icontains=termo_busca) | Q(lm__icontains=termo_busca))
+            #produtos = produtos.filter(titulo__icontains=nome_a_buscar)
 
     return render(request, 'produtos/buscar.html', {"cards": produtos})
 

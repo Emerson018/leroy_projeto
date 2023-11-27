@@ -22,7 +22,7 @@
                         <h2 class="cards__titulo">Navegue pela galeria</h2>
                         <ul class="cards__lista">
                             {% if cards %}
-                            <!--{% for produto in cards %}-->
+                            {% for produto in cards %}
                             <li class="card">
                                 <a href="{% url 'detalhe_produto' %}?lm={{ produto.lm}}&titulo={{produto.titulo}}" target="_blank">
                                     {% if produto.foto == "" or produto.foto == null %}
@@ -41,10 +41,10 @@
                                     </div>
                                 </div>
                             </li>
-                            <!--{% endfor %}-->
+                            {% endfor %}
                             {% else %}
                             <div>
-                                <p>Produto não encontrado</p>
+                               
                             </div>
                             {% endif %}
                         </ul>
