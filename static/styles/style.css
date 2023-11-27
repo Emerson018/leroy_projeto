@@ -370,11 +370,11 @@ table {
 }
 
 .tags__tag {
-    background-color: #D9D9D930;
+    background-color: #0b010130;
     margin-right: 1.5rem;
     border-radius: 8px;
     padding: .8rem .5rem;
-    width: 100px;
+    width: 120px;
     text-align: center;
     border: 2px solid transparent;
 }
