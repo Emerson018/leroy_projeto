@@ -76,3 +76,13 @@ def get_image(url):
     img_path = default_storage.save(img_filename,img_content)
     
     return img_path
+
+def get_title_and_lm(url,title_element):
+    title = title_element.text.replace('\n', '').replace('&','e').replace('+', ' plus')
+    barcode = requisition(url).find('div', class_='badge product-code badge-product-code').text
+    lm = ''
+    for caractere in barcode:
+        if caractere.isdigit():
+            lm += caractere
+
+    return title, lm 

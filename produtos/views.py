@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.db.models import Q
 from produtos.models import Produto
-from produtos.conteudo.search_data import find_price, get_review, requisition, get_image
+from produtos.conteudo.search_data import find_price, get_review, requisition, get_image, get_title_and_lm
 from produtos.conteudo.format_values import format_real, format_cents
 from .forms import ProdutoForm
 from urllib.parse import unquote
@@ -29,8 +29,7 @@ def buscar(request):
         termo_busca = request.GET['buscar']
         if termo_busca:
             produtos = produtos.filter(Q(titulo__icontains=termo_busca) | Q(lm__icontains=termo_busca))
-            #produtos = produtos.filter(titulo__icontains=nome_a_buscar)
-
+            
     return render(request, 'produtos/buscar.html', {"cards": produtos})
 
 def lista(request):
@@ -46,13 +45,7 @@ def lista(request):
             title_element = requisition(url).find('h1', class_='product-title align-left color-text')
                 
             if title_element:
-                title = title_element.text.replace('\n', '').replace('&','e').replace('+', ' plus')
-                barcode = requisition(url).find('div', class_='badge product-code badge-product-code').text
-                lm = ''
-                for caractere in barcode:
-                    if caractere.isdigit():
-                        lm += caractere
-                
+                title, lm = get_title_and_lm(url, title_element)
                 prod_price = requisition(url).find('div',class_='product-price-tag')
                 price = find_price(prod_price)
                 reais = format_real(price)
