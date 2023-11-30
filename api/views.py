@@ -1,6 +1,8 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from rest_framework import viewsets
+from .serializers import ProdutoSerializer
+from produtos.models import Produto
 
-
-def main_api(request):
-    return HttpResponse('alo')
+class ProdutoView(viewsets.ModelViewSet):
+    serializer_class = ProdutoSerializer
+    queryset = Produto.objects.all()
