@@ -79,9 +79,9 @@ def get_image(url):
 
 def get_title_and_lm(url,title_element):
     title = title_element.text.replace('\n', '').replace('&','e').replace('+', ' plus')
-    barcode = requisition(url).find('div', class_='badge product-code badge-product-code').text
+    html_code = requisition(url).find('div', class_='badge product-code badge-product-code').text
     lm = ''
-    for caractere in barcode:
+    for caractere in html_code:
         if caractere.isdigit():
             lm += caractere
 
