@@ -9,6 +9,7 @@ class ListandoProdutos(admin.ModelAdmin):
     list_per_page = 20
     list_filter = ('usuario'),
     search_fields = ("lm", "titulo",)
+    ordering = ('titulo',)
     
 
 admin.site.register(Produto, ListandoProdutos)
