@@ -59,7 +59,6 @@ def get_review(lm):
         avaliacao = comentario.group(1)
         return int(avaliacao), float(media_avaliacao)
     else:
-        print('Não há avaliações para esse produto')
         media_avaliacao = random_int()
         avaliacao = random_float()
         return media_avaliacao, avaliacao

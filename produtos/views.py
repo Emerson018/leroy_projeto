@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.db.models import Q
 from produtos.models import Produto
 from produtos.conteudo.search_data import *
-from produtos.conteudo.format_values import format_real, format_cents
+from produtos.conteudo.format_values import format_real
 from .forms import ProdutoForm
 from urllib.parse import unquote
 
@@ -42,15 +42,14 @@ def lista(request):
                 messages.error(request, 'Formulário inválido. Certifique-se de inserir o link correto.')
                 return redirect('lista')
 
-            html_content = requisition(url).find('h1', class_='product-title align-left color-text')
+            html_element = requisition(url).find('h1', class_='product-title align-left color-text')
                 
-            if html_content:
-                title, lm = get_title_and_lm(url, html_content)
+            if html_element:
+                title, lm = get_title_and_lm(url, html_element)
                 html_price = requisition(url).find('div',class_='product-price-tag')
-                price = find_price(html_price)
-                reais = format_real(price)
-                centavos = format_cents(price) 
-                preco = (reais + centavos)
+                formated_price = find_price(html_price)
+                preco = format_real(formated_price)
+                preco = float(preco)
                 review, average_review = get_review(lm)
                 foto = get_image(url)
 
