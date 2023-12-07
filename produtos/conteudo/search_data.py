@@ -85,3 +85,13 @@ def get_title_and_lm(url,title_element):
             lm += caractere
 
     return title, lm 
+
+def get_info_produto(url):
+    info_produto = requisition(url).find('table', class_='characteristics-table')
+    dict_produto = {}
+    for linha in info_produto.find_all('tr'):
+        chave = linha.th.text.strip()
+        valor = linha.td.text.strip()
+        dict_produto[chave] = valor
+
+    return dict_produto

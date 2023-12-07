@@ -46,12 +46,17 @@ def lista(request):
                 
             if html_element:
                 title, lm = get_title_and_lm(url, html_element)
+
                 html_price = requisition(url).find('div',class_='product-price-tag')
                 formated_price = find_price(html_price)
                 preco = format_real(formated_price)
                 preco = float(preco)
+
                 review, average_review = get_review(lm)
+
                 foto = get_image(url)
+
+                info_produto = get_info_produto(url)
 
                 if lm:
                     if Produto.objects.filter(lm=lm).exists():
@@ -66,7 +71,9 @@ def lista(request):
                             link=url,
                             avaliacoes=review,
                             media_avaliacoes=average_review,
-                            foto=foto)
+                            foto=foto,
+                            info_produto=info_produto)
+                        
                         
                         produto.save()
                         messages.success(request, 'Produto salvo com sucesso!')
@@ -80,7 +87,8 @@ def lista(request):
                              'url': url,
                              'avaliacoes': review,
                              'media_avaliacoes': average_review,
-                             'foto': foto
+                             'foto': foto,
+                             'info_produto': info_produto
                             }
                         )
             
@@ -100,6 +108,7 @@ def dados(request):
 
 def detalhe_produto(request):
     lm = request.GET.get('lm')
+    info_produto = request.GET.get('info_produto')
     titulo = unquote(request.GET.get('titulo'))
     produto = Produto.objects.get(lm=lm, titulo=titulo)
     foto = produto.foto.url if produto.foto else None
