@@ -6,14 +6,20 @@ from produtos.conteudo.search_data import *
 from produtos.conteudo.format_values import format_real
 from .forms import ProdutoForm
 from urllib.parse import unquote
+from django.core.paginator import Paginator
 
 def index(request):
     if not request.user.is_authenticated:
         messages.error(request, 'Faça login para acessar a página.')
         return redirect('login')
-    
-    produto = Produto.objects.order_by("-data_produto")
-    return render(request, 'produtos/index.html',{"cards": produto})
+    else:
+        produto = Produto.objects.order_by("-data_produto")
+        p = Paginator(Produto.objects.all(), 10)
+        page = request.GET.get('page')
+        dados_organizados = p.get_page(page)
+        nums = "a" * dados_organizados.paginator.num_pages
+
+        return render(request, 'produtos/index.html',{"cards": produto, 'dados_organizados': dados_organizados, 'nums':nums})
 
 def imagem(request):
     return render(request, 'produtos/imagem.html')
@@ -56,7 +62,7 @@ def lista(request):
 
                 foto = get_image(url)
 
-                info_produto = get_info_produto(url)
+                #info_produto = get_info_produto(url)
 
                 if lm:
                     if Produto.objects.filter(lm=lm).exists():
@@ -71,9 +77,7 @@ def lista(request):
                             link=url,
                             avaliacoes=review,
                             media_avaliacoes=average_review,
-                            foto=foto,
-                            info_produto=info_produto)
-                        
+                            foto=foto)
                         
                         produto.save()
                         messages.success(request, 'Produto salvo com sucesso!')
@@ -87,8 +91,7 @@ def lista(request):
                              'url': url,
                              'avaliacoes': review,
                              'media_avaliacoes': average_review,
-                             'foto': foto,
-                             'info_produto': info_produto
+                             'foto': foto
                             }
                         )
             
@@ -104,16 +107,21 @@ def lista(request):
 def dados(request):
     dados = Produto.objects.all()
 
-    return render(request, 'produtos/dados.html', {'dados': dados})
+    p = Paginator(Produto.objects.all(), 10)
+    page = request.GET.get('page')
+    dados_organizados = p.get_page(page)
+    nums = "i" * dados_organizados.paginator.num_pages
+
+    return render(request, 'produtos/dados.html', {'dados': dados, 'dados_organizados': dados_organizados, 'nums': nums})
 
 def detalhe_produto(request):
     lm = request.GET.get('lm')
-    info_produto = request.GET.get('info_produto')
     titulo = unquote(request.GET.get('titulo'))
     produto = Produto.objects.get(lm=lm, titulo=titulo)
     foto = produto.foto.url if produto.foto else None
- 
+
     return render(request, 'produtos/detalhe_produto.html', {'lm': lm, 'titulo': titulo, 'foto':foto})
 
 def testes(request):
     return render(request, 'produtos/testes.html')
+
