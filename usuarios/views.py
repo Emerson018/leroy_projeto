@@ -36,7 +36,7 @@ def logout(request):
     auth.logout(request)
     messages.success(request, "Logout efetuado com sucesso!")
     
-    return redirect('login')
+    return redirect('login_2')
 
 def register(request):
     form = CadastroForms()

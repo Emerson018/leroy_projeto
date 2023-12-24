@@ -2,7 +2,6 @@
 
 body{
     margin: 0;
-    font-family: 'Roboto';
 }
 
 body * {
@@ -27,7 +26,10 @@ body * {
 }
 
 .left-login > h1 {
-    color:#00ffff
+    color:#00ffff;
+    font-size: 40px;
+    font-family: Tahoma, sans-serif;
+
 }
 
 .left-login-image{
@@ -40,7 +42,10 @@ body * {
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 20px;
+    font-family: Tahoma, sans-serif;
 }
+
 
 .card-login{
     width: 60%;
@@ -71,8 +76,9 @@ body * {
 }
 
 .textfield > input{
-    width: 100%;
+    width: 120%;
     border: none;
+    margin: 5px;
     border-radius: 10px;
     padding: 15px;
     background: #514869;
@@ -94,11 +100,11 @@ body * {
 }
 
 .btn-login{
-    width: 120%;
+    width: 60%;
     padding: 16px 10px;
-    margin: 10px;
     border: none;
-    border-radius: 10px;
+    margin: 6px;
+    border-radius: 20px;
     outline: none;
     text-transform: uppercase;
     font-weight: 1000;
@@ -151,4 +157,24 @@ body * {
     100%{
         transform: rotate(360deg);
     }
+}
+
+.rodape-login {
+    background-color: #171328;
+    width: 100%;
+    padding: 1.5rem 3rem;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    color: #FFFFFF;
+}
+
+.rodape-login__icones {
+    width: 120px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.rodape-login__texto {
+    font-size: 1.1rem;
 }
