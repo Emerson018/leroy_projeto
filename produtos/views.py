@@ -54,7 +54,8 @@ def lista(request):
                 title, lm = get_title_and_lm(url, html_element)
 
                 html_price = requisition(url).find('div',class_='product-price-tag')
-                formated_price = find_price(html_price)
+
+                formated_price = find_price(html_price) 
                 preco = format_real(formated_price)
                 preco = float(preco)
 
@@ -93,8 +94,7 @@ def lista(request):
                              'media_avaliacoes': average_review,
                              'foto': foto
                             }
-                        )
-            
+                        )            
             else:
                 messages.error(request, 'Certifique-se de inserir o link de um PRODUTO.')
                 return render(request, 'produtos/lista.html')
