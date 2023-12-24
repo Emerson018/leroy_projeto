@@ -56,7 +56,7 @@ def lista(request):
                 html_price = requisition(url).find('div',class_='product-price-tag')
 
                 formated_price = find_price(html_price) 
-                preco = format_real(formated_price)
+                preco = format_real(request, formated_price)
                 preco = float(preco)
 
                 review, average_review = get_review(lm)
