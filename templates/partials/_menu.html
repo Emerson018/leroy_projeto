@@ -6,18 +6,24 @@
                 <a href="{% url 'index' %}"><img src="{% static '/assets/ícones/1x/Home - ativo.png' %}"> Home</a>
                 <a href="{% url 'lista' %}"><img src="{% static '/assets/ícones/1x/adicionar.png' %}"> Adicionar Produto</a>
                 <a href="{% url 'dados' %}"><img src="{% static '/assets/ícones/1x/bancos-de-dados.png' %}"> Banco de dados</a>
-                <a href="{% url 'testes' %}"><img src="{% static '/assets/ícones/1x/Surpreenda-me - ativo.png' %}"> TESTES</a> 
-                <a href="{% url 'login_2' %}"><img src="{% static '/assets/ícones/1x/Surpreenda-me - ativo.png' %}"> Login teste</a> 
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Usuário
-                  </a>
-                  <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="{% url 'login' %}"><img src="{% static '/assets/ícones/1x/entrar.png' %}"> Login</a></li>
-                    <li><a class="dropdown-item" href="{% url 'register' %}"><img src="{% static '/assets/ícones/1x/registrar.png' %}"> Registrar</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="{% url 'logout' %}"><img src="{% static '/assets/ícones/1x/saida.png' %}"> Logout</a></li>
-                  </ul>
-                </li>                 
+                 
+                
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><img src="{% static '/assets/ícones/1x/Surpreenda-me - ativo.png' %}"> Usuário</a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="{% url 'login' %}"><img src="{% static '/assets/ícones/1x/entrar.png' %}" > Login</a></li>
+                  <li><a class="dropdown-item" href="{% url 'register' %}"><img src="{% static '/assets/ícones/1x/registrar.png' %}"> Registrar</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="{% url 'logout' %}"><img src="{% static '/assets/ícones/1x/saida.png' %}"> Logout</a></li>
+                </ul>
+                
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><img src="{% static '/assets/ícones/1x/Surpreenda-me - ativo.png' %}"> TESTES</a>
+                <ul class="dropdown-menu">
+                  <li><a href="{% url 'testes' %}"><img src="{% static '/assets/ícones/1x/Surpreenda-me - ativo.png' %}"> TESTES</a></li>  
+                  <li><a href="{% url 'login_2' %}"><img src="{% static '/assets/ícones/1x/Surpreenda-me - ativo.png' %}"> Login teste</a></li> 
+                  <li><a href="{% url 'dashboard' %}"><img src="{% static '/assets/ícones/1x/Surpreenda-me - ativo.png' %}"> Dashboard</a></li>
+                  <li><a href="{% url 'admin_dashboard' %}"><img src="{% static '/assets/ícones/1x/Surpreenda-me - ativo.png' %}">Admin dashboard</a></li>
+                </ul>             
             </nav>
+            </nav>
+            
         </section>

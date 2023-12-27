@@ -56,7 +56,7 @@ def lista(request):
                 html_price = requisition(url).find('div',class_='product-price-tag')
 
                 formated_price = find_price(html_price) 
-                preco = format_real(request, formated_price)
+                preco = format_real(formated_price)
                 preco = float(preco)
 
                 review, average_review = get_review(lm)
@@ -125,3 +125,13 @@ def detalhe_produto(request):
 def testes(request):
     return render(request, 'produtos/testes.html')
 
+# daqui pra baixo é do dashboard
+
+def dashboard(request):
+    return render(request, 'produtos/dashboard.html')
+
+def admin_dashboard(request):
+    return  render(request, 'produtos/admin_dashboard.html')
+
+def admin_dashboard2(request):
+    return  render(request, 'produtos/admin_dashboard2.html')
